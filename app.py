@@ -17,13 +17,13 @@ def create_app(config_name=None):
     _backend_dir = os.path.dirname(os.path.abspath(__file__))
     _root_dir = os.path.dirname(_backend_dir)
 
-    # Primary: project root has frontend/ beside backend/
-    # Fallback: Railway deploys backend/ as root, frontend/ is copied inside it during build
-    _template_dir = os.path.join(_root_dir, 'frontend', 'templates')
-    _static_dir = os.path.join(_root_dir, 'frontend', 'static')
+    # Templates/static are copied next to app.py during Railway build.
+    # Fall back to the repo-root frontend/ layout for local development.
+    _template_dir = os.path.join(_backend_dir, 'templates')
+    _static_dir   = os.path.join(_backend_dir, 'static')
     if not os.path.isdir(_template_dir):
-        _template_dir = os.path.join(_backend_dir, 'frontend', 'templates')
-        _static_dir = os.path.join(_backend_dir, 'frontend', 'static')
+        _template_dir = os.path.join(_root_dir, 'frontend', 'templates')
+        _static_dir   = os.path.join(_root_dir, 'frontend', 'static')
 
     app = Flask(
         __name__,
