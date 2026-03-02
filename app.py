@@ -14,10 +14,13 @@ def create_app(config_name=None):
     Application factory pattern
     Creates and configures the Flask application
     """
+    _backend_dir = os.path.dirname(os.path.abspath(__file__))
+    _root_dir = os.path.dirname(_backend_dir)
+
     app = Flask(
         __name__,
-        template_folder='../frontend/templates',
-        static_folder='../frontend/static'
+        template_folder=os.path.join(_root_dir, 'frontend', 'templates'),
+        static_folder=os.path.join(_root_dir, 'frontend', 'static')
     )
 
     # Load configuration
